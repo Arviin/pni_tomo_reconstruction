@@ -1,0 +1,15 @@
+[project]
+name = "pni-reconstruction"
+version = "0.1.0"
+description = "Polarization contrast neutron tomography reconstruction"
+requires-python = ">=3.10"
+authors = [
+    { name = "Arvin (Fazel) Mirzaei" }
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"

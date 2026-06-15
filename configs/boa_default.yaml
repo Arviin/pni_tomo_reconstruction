@@ -1,0 +1,138 @@
+experiment:
+  name: "boa_pni_test"
+  beamline: "PSI_BOA"
+  mode: "polarization_contrast_tomography"
+
+  # Scientific scope:
+  # This pipeline reconstructs scalar attenuation and depolarization volumes.
+  # It is NOT a full magnetic vector-field polarimetric tomography solver.
+  description: "BOA-style scalar polarization-contrast neutron tomography"
+
+data:
+  root: "data/raw"
+
+  # These are temporary patterns.
+  # We will adjust them once you receive the real BOA folder structure.
+  pattern_up: "*up*.tif"
+  pattern_down: "*down*.tif"
+
+  open_up: "open_up"
+  open_down: "open_down"
+  dark: "dark"
+
+  # Future options:
+  # open_beam_mode: "mean", "before_after", "interpolate_by_time"
+  open_beam_mode: "mean"
+
+  # Future options:
+  # dark_mode: "single", "per_spin_state"
+  dark_mode: "single"
+
+geometry:
+  # Paper-like BOA value. Change if your experiment used different optics.
+  pixel_size_um: 66.0
+
+  # Paper-like BOA scan: 232 projections over 360 degrees.
+  rotation_range_deg: 360.0
+  n_projections: 232
+  angle_start_deg: 0.0
+  angle_step_deg: 1.55
+
+  # Very important tuning parameter.
+  # Keep null until we estimate it from real projections.
+  center_of_rotation_px: null
+
+  # ASTRA internal detector spacing.
+  # Use 1.0 for pixel units. Physical scaling can be applied later.
+  detector_pixel_size_astra_units: 1.0
+
+  # If null, use detector width.
+  recon_size_px: null
+
+  # Keep these false until real-data inspection.
+  flip_detector_x: false
+  reverse_angle_order: false
+
+  crop:
+    enabled: false
+    x_min: null
+    x_max: null
+    y_min: null
+    y_max: null
+
+correction:
+  dark_correction: true
+  open_beam_correction: true
+
+  # Numerical safety for raw intensity images.
+  # Use decimal notation to avoid YAML parser ambiguity.
+  intensity_clip_min: 0.00000001
+
+  remove_spots: true
+  spot_filter_size: 3
+  spot_threshold_sigma: 6.0
+
+  # Keep false at first.
+  # Ring/stripe correction can easily create fake depolarization structures.
+  stripe_correction: false
+  stripe_method: "sorting"
+  stripe_size: 21
+
+polarization:
+  compute_attenuation: true
+  compute_depolarization: true
+
+  # Use CT convention:
+  # attenuation_proj    = -log(I / I0)
+  # depolarization_proj = -log(P / P0)
+  log_sign: "negative"
+
+  # Small numerical value only for intensity division/log safety.
+  intensity_clip_min: 0.00000001
+
+  # Minimum acceptable absolute open-beam polarization.
+  # Pixels with |P0| below this are unreliable for depolarization.
+  p0_min: 0.001
+
+  # Minimum acceptable polarization ratio P/P0.
+  # Pixels below this are masked, not blindly clipped.
+  pratio_min: 0.0001
+
+  # Options: "nan", "zero"
+  # Use "nan" scientifically, because invalid pixels should not silently become data.
+  invalid_policy: "nan"
+
+  # Save maps/statistics of invalid pixels, open-beam polarization, etc.
+  save_qc: true
+
+reconstruction:
+  backend: "astra"
+  geometry: "parallel"
+  algorithm: "SIRT"
+
+  # Start CPU-safe.
+  # Later change to true if ASTRA CUDA works on your machine.
+  use_cuda: false
+
+  # This is a tuning parameter, not a physical truth.
+  # Later we should test 25, 50, 100, 200.
+  iterations: 100
+
+  reconstruct_rows: "all"
+
+postprocess:
+  tv_denoise: true
+
+  # Dangerous tuning parameter.
+  # Always save raw reconstruction before TV denoising.
+  tv_weight: 0.03
+
+  save_raw_before_denoising: true
+
+calibration:
+  # Without calibration, output is depolarization contrast, not martensite vol.%.
+  apply: false
+
+  slope: null
+  intercept: null
+  output_unit: "vol_percent"

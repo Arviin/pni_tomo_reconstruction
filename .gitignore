@@ -1,0 +1,38 @@
+# pixi environments
+.pixi/*
+!.pixi/config.toml
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.ruff_cache/
+
+# Pixi
+.pixi/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Data folders
+data/raw/
+data/processed/
+data/reconstructed/
+
+# Large scientific data
+*.tif
+*.tiff
+*.h5
+*.hdf5
+*.npy
+*.npz
+*.zarr/
+
+# Logs and temporary files
+*.log
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
