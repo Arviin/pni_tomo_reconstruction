@@ -1,8 +1,8 @@
-\# BOA PNI Reconstruction
+\# Polarized Neutron Imaging Tomography Reconstruction
 
 
 
-Professional reconstruction pipeline for BOA-style polarization contrast neutron tomography.
+Reconstruction pipeline for polarization contrast neutron tomography.
 
 
 
