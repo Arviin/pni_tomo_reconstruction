@@ -6,6 +6,14 @@ This repository is designed to reconstruct scalar 3D volumes from spin-resolved 
 
 The current reconstruction backend is **ASTRA Toolbox** using parallel-beam **SIRT** reconstruction.
 
+## Author
+
+**Arvin (Fazel) Mirzaei**  
+Postdoctoral Researcher, Paul Scherrer Institute, Switzerland  
+Email: `fazel.mirzaei@psi.ch`
+
+---
+
 ---
 
 ## Scientific Scope
