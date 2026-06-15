@@ -9,7 +9,7 @@ The current reconstruction backend is **ASTRA Toolbox** using parallel-beam **SI
 ## Author
 
 **Arvin (Fazel) Mirzaei**  
-Postdoctoral Researcher, Paul Scherrer Institute, Switzerland  
+Postdoctoral Researcher, Paul Scherrer Institute (PSI), Switzerland  
 Email: `fazel.mirzaei@psi.ch`
 
 ---
