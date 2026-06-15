@@ -6,13 +6,12 @@ experiment:
   # Scientific scope:
   # This pipeline reconstructs scalar attenuation and depolarization volumes.
   # It is NOT a full magnetic vector-field polarimetric tomography solver.
-  description: "BOA-style scalar polarization-contrast neutron tomography"
+  description: "Polarization-contrast neutron tomography"
 
 data:
   root: "data/raw"
 
   # These are temporary patterns.
-  # We will adjust them once you receive the real BOA folder structure.
   pattern_up: "*up*.tif"
   pattern_down: "*down*.tif"
 
@@ -29,10 +28,10 @@ data:
   dark_mode: "single"
 
 geometry:
-  # Paper-like BOA value. Change if your experiment used different optics.
+  # Change if your experiment used different optics.
   pixel_size_um: 66.0
 
-  # Paper-like BOA scan: 232 projections over 360 degrees.
+  # Change if your experiment used different optics.
   rotation_range_deg: 360.0
   n_projections: 232
   angle_start_deg: 0.0
@@ -111,11 +110,10 @@ reconstruction:
   algorithm: "SIRT"
 
   # Start CPU-safe.
-  # Later change to true if ASTRA CUDA works on your machine.
+  # Change to true if ASTRA CUDA works on your machine.
   use_cuda: false
 
   # This is a tuning parameter, not a physical truth.
-  # Later we should test 25, 50, 100, 200.
   iterations: 100
 
   reconstruct_rows: "all"
