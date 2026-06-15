@@ -1,4 +1,4 @@
-# Polarized Neutron Imaging (PNI) Tomography Reconstruction
+# Polarized Neutron Imaging (PNI) Tomographic Reconstruction
 
 A Python-based reconstruction pipeline for **polarization contrast neutron tomography**.
 
